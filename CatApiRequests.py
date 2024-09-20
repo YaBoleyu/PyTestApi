@@ -14,8 +14,13 @@ def amountofCatFacts(cat_facts):
 
 def getCatFact(cat_facts):
     data = getCatFacts(cat_facts).json()
+    json_str = json.dumps(data[0])
+    resp=json.loads(json_str)
+    print(resp)
+    factId= resp['_id']
+    cat_fact_link = requests.get("https://cat-fact.herokuapp.com/facts/"+factId)
+    print(cat_fact_link)
 
+    return cat_fact_link
 if __name__ == '__main__':
-
-    print(getCatFacts(cat_facts).json())
-    amountofCatFacts(cat_facts)
+    getCatFact(cat_facts)

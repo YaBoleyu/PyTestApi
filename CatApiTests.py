@@ -1,3 +1,5 @@
+import json
+
 import CatApiRequests
 import requests
 cat_facts =''
@@ -23,5 +25,17 @@ def test_getFacts_success():
     response = CatApiRequests.getCatFacts(cat_facts)
     assert  response.status_code == 200
     print("Expected Status Code: " + "200" + " Actual Status Code: " + str(response.status_code))
+def test_getFact():
+    response = CatApiRequests.getCatFact(cat_facts)
+    assert response.status_code ==200
+def test_getFact_text():
+    response = CatApiRequests.getCatFact(cat_facts).json()
+    print(response)
+    json_str = json.dumps(response)
+    resp = json.loads(json_str)
+    text=resp['text']
+    assert text =='When asked if her husband had any hobbies, Mary Todd Lincoln is said to have replied "cats."'
+
 if __name__ == '__main__':
     CatApiRequests.getCatFacts()
+    CatApiRequests.getCatFact()
